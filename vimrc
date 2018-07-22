@@ -1,5 +1,5 @@
 syntax on " 语法高亮
-colorscheme solarized 
+colorscheme vividchalk
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 
@@ -181,7 +181,9 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'luochen1990/rainbow'
 
+let g:rainbow_active = 1
 " YouCompleteMe配置
 " 开启语义补全
 " let g:ycm_seed_identifiers_with_syntax=1

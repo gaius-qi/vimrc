@@ -170,6 +170,7 @@ Plugin 'editorconfig/editorconfig-vim' " 支持editorconfig
 Plugin 'docunext/closetag.vim' " 提供标签自动闭合
 Plugin 'ashfinal/vim-colors-violet'
 
+" 后补插件
 Plugin 'elzr/vim-json', { 'for': 'json' }
 Plugin 'honza/vim-snippets'
 Plugin 'fatih/vim-go', { 'for': ['go']  }

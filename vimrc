@@ -3,6 +3,8 @@ colorscheme vividchalk
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 
+set ttyfast
+set lazyredraw
 set clipboard=unnamed " Mac 下共享剪切板
 set undofile " vim退出并在下次打开后仍然保留上次的undo历史
 set undodir=$HOME/.vim/undo " 需要提前创建该目录，否则不会生效
@@ -101,6 +103,8 @@ autocmd! bufwritepost .vimrc source %
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行
 autocmd InsertEnter * se cul
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css " vim-vue插件
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript " TypeScript 插件
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx " tsx 支持
 " autocmd VimEnter * NERDTree | wincmd p " The-NERD-tree 默认启动，打开后光标在编辑文件中
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " 自动关闭
 au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd  " vim-markdown
@@ -151,10 +155,7 @@ Plugin 'brooth/far.vim' " 多文件替换 :Far a aa <Tab> :Fardo (t T 是否生�
 Plugin 'rking/ag.vim' " ,s 全局搜索
 
 " 展示型插件
-Plugin 'itchyny/vim-cursorword' " 相同字符显示下划线
 Plugin 'mhinz/vim-signify' " 显示文件变动
-Plugin 'gregsexton/MatchTag' " 高亮两个配对的tag
-Plugin 'altercation/vim-colors-solarized' " 配置颜色
 Plugin 'vim-airline/vim-airline' " 状态栏
 Plugin 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
 Plugin 'vim-scripts/trailing-whitespace' " 空格处理
@@ -168,9 +169,10 @@ Plugin 'mxw/vim-jsx' " react jsx插件
 Plugin 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plugin 'editorconfig/editorconfig-vim' " 支持editorconfig
 Plugin 'docunext/closetag.vim' " 提供标签自动闭合
+Plugin 'leafgarland/typescript-vim' " TypeScript 支持
+Plugin 'peitalin/vim-jsx-typescript' " tsx 支持
 Plugin 'ashfinal/vim-colors-violet'
 
-" 后补插件
 Plugin 'elzr/vim-json', { 'for': 'json' }
 Plugin 'honza/vim-snippets'
 Plugin 'fatih/vim-go', { 'for': ['go']  }
@@ -182,6 +184,23 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'SirVer/ultisnips'
+
+" OmniComplete
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \if &omnifunc == "" |
+        \setlocal omnifunc=syntaxcomplete#Complete |
+        \endif
+endif
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " YouCompleteMe配置
 " 开启语义补全
@@ -204,11 +223,16 @@ let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_cache_omnifunc=0
 let g:ycm_server_keep_logfiles = 1
+" TypeScript 支持
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
 
 "在注释输入中也能补全
 let g:ycm_complete_in_comments=1
 let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion=2
 
 "在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
@@ -240,3 +264,5 @@ let g:ale_set_quickfix = 1
 set completeopt-=previe
 
 call vundle#end()
+
+

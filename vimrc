@@ -17,6 +17,7 @@ Plug 'junegunn/gv.vim' " Git Commit 提示 " :GV, 当前文件:GV!
 Plug 'rking/ag.vim' " ,s 全局搜索
 
 " 展示型插件
+Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
@@ -49,7 +50,7 @@ call plug#end()
 filetype plugin indent on
 
 syntax on " 语法高亮
-colorscheme vividchalk
+colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 

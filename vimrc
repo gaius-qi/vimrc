@@ -1,5 +1,56 @@
+set nocompatible
+set shell=/bin/zsh
+set background=dark
+filetype off
+call plug#begin('~/.vim/plugged')
+" 操作型插件
+Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
+Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
+Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
+Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换,oxcst, 切换窗口 <c-w>
+Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
+Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
+Plug 'mbbill/undotree'  "编辑文件的时光机器 打开,u 恢复上一步u 撤销 <c+r>
+Plug 'zivyangll/git-blame.vim' " 提供 Git Commit 信息 ,s
+Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
+Plug 'junegunn/gv.vim' " Git Commit 提示 " :GV, 当前文件:GV!
+Plug 'rking/ag.vim' " ,s 全局搜索
+
+" 展示型插件
+Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
+Plug 'mhinz/vim-signify' " 显示文件变动
+Plug 'vim-airline/vim-airline' " 状态栏
+Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
+Plug 'vim-scripts/trailing-whitespace' " 空格处理
+Plug 'pangloss/vim-javascript' " 语法高亮
+Plug 'groenewege/vim-less' " 语法高亮
+Plug 'posva/vim-vue' " 语法高亮
+Plug 'mxw/vim-jsx' " react jsx插件
+Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
+Plug 'docunext/closetag.vim' " 提供标签自动闭合
+Plug 'leafgarland/typescript-vim' " TypeScript 支持
+Plug 'peitalin/vim-jsx-typescript' " tsx 支持
+Plug 'ashfinal/vim-colors-violet'
+
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go', { 'for': ['go']  }
+Plug 'tpope/vim-dispatch', { 'for': ['go']  }
+Plug 'jiangmiao/auto-pairs'
+Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
+Plug 'tpope/vim-commentary'
+Plug 'w0ng/vim-hybrid'
+Plug 'Valloric/YouCompleteMe'
+Plug 'marijnh/tern_for_vim'
+Plug 'SirVer/ultisnips'
+
+Plug '$HOME/.fzf'
+Plug 'junegunn/fzf.vim'
+call plug#end()
+filetype plugin indent on
+
 syntax on " 语法高亮
-colorscheme vividchalk
+colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 
@@ -61,7 +112,6 @@ set shiftwidth=2 " 统一缩进为2
 set expandtab " 用空格代替制表符
 set wrap " 换行
 set smarttab " 在行和段开始处使用制表符
-set rtp+=~/.vim/bundle/vundle/  " 使用 vundle 插件
 set background=dark
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set fillchars+=stl:\ ,stlnc:\
@@ -132,58 +182,10 @@ endif
 set dir=$HOME/.vim/tmp/swap
 if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 
-call vundle#begin()
-Plugin 'gmarik/vundle'  " 管理其他插件 :bundleInstall
-
-" 操作型插件
-Plugin 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
-Plugin 'repeat.vim' " 重复操作：.
-Plugin 'matchit.zip' " 在()，""以及HTML标签之间快速跳转 <c-%>
-Plugin 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
-Plugin 'kien/ctrlp.vim' " 模糊查询打开文件 <c-p>
-Plugin 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
-Plugin 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换,oxcst, 切换窗口 <c-w>
-Plugin 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
-Plugin 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
-Plugin 'mbbill/undotree'  "编辑文件的时光机器 打开,u 恢复上一步u 撤销 <c+r>
-Plugin 'plasticboy/vim-markdown'  " ]]下一标题，[[:上一标题，][下一子标题，[]上一子标题 ，]c当前，]u父（asdf），<leader>h 目录 Enter进入
-Plugin 'moll/vim-node' " 自动跳转 require: gf
-Plugin 'zivyangll/git-blame.vim' " 提供 Git Commit 信息 ,s
-Plugin 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
-Plugin 'junegunn/gv.vim' " Git Commit 提示 " :GV, 当前文件:GV!
-Plugin 'brooth/far.vim' " 多文件替换 :Far a aa <Tab> :Fardo (t T 是否生效)
-Plugin 'rking/ag.vim' " ,s 全局搜索
-
-" 展示型插件
-Plugin 'mhinz/vim-signify' " 显示文件变动
-Plugin 'vim-airline/vim-airline' " 状态栏
-Plugin 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
-Plugin 'vim-scripts/trailing-whitespace' " 空格处理
-Plugin 'pangloss/vim-javascript' " 语法高亮
-Plugin 'groenewege/vim-less' " 语法高亮
-Plugin 'jelera/vim-javascript-syntax' " 语法高亮
-Plugin 'hail2u/vim-css3-syntax' " 语法高亮
-Plugin 'othree/html5.vim' " html5
-Plugin 'posva/vim-vue' " 语法高亮
-Plugin 'mxw/vim-jsx' " react jsx插件
-Plugin 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plugin 'editorconfig/editorconfig-vim' " 支持editorconfig
-Plugin 'docunext/closetag.vim' " 提供标签自动闭合
-Plugin 'leafgarland/typescript-vim' " TypeScript 支持
-Plugin 'peitalin/vim-jsx-typescript' " tsx 支持
-Plugin 'ashfinal/vim-colors-violet'
-
-Plugin 'elzr/vim-json', { 'for': 'json' }
-Plugin 'honza/vim-snippets'
-Plugin 'fatih/vim-go', { 'for': ['go']  }
-Plugin 'tpope/vim-dispatch', { 'for': ['go']  }
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
-Plugin 'tpope/vim-commentary'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'SirVer/ultisnips'
+" fzf
+let g:fzf_layout = { 'down': '50%' }
+nnoremap <C-O> :FZF<CR>
+nnoremap <C-P> :GFiles<CR>
 
 " OmniComplete
 if has("autocmd") && exists("+omnifunc")
@@ -217,7 +219,7 @@ endif
 " Disable the neosnippet preview candidate window
 set completeopt-=preview
 " 设置默认的.ycm_extra_conf.py文件
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_confirm_extra_conf = 0
@@ -262,7 +264,3 @@ let g:ale_set_quickfix = 1
 
 " 不弹出Scratch窗
 set completeopt-=previe
-
-call vundle#end()
-
-

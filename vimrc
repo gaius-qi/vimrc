@@ -17,6 +17,7 @@ Plug 'junegunn/gv.vim' " Git Commit 提示 " :GV, 当前文件:GV!
 Plug 'rking/ag.vim' " ,s 全局搜索
 
 " 展示型插件
+Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
@@ -49,7 +50,7 @@ call plug#end()
 filetype plugin indent on
 
 syntax on " 语法高亮
-colorscheme vividchalk
+colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 
@@ -176,6 +177,10 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
     let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 endif
+
+" NerdTree
+let g:NERDShutUp=1
+map <C-e> :NERDTreeToggle<CR>
 
 " store swap files in a single directory instead of the current directory with the 'dir' setting
 set dir=$HOME/.vim/tmp/swap

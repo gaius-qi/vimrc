@@ -178,6 +178,10 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 endif
 
+" NerdTree
+let g:NERDShutUp=1
+map <C-e> :NERDTreeToggle<CR>
+
 " store swap files in a single directory instead of the current directory with the 'dir' setting
 set dir=$HOME/.vim/tmp/swap
 if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif

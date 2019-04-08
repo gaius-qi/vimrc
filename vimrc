@@ -3,6 +3,7 @@ set shell=/bin/zsh
 set background=dark
 filetype off
 call plug#begin('~/.vim/plugged')
+set encoding=utf-8
 " 操作型插件
 Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
 Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
@@ -251,12 +252,15 @@ let g:ycm_filetype_blacklist = {
 " Ale
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['prettier', 'eslint'],
 \}
 let g:ale_fixers = {
-\   'javascript': [
-\     'eslint',
-\   ],
+\   'javascript': ['prettier', 'eslint'],
+\   'vue': ['prettier', 'eslint'],
+\   'json': ['prettier'],
+\   'css': ['prettier'],
+\   'less': ['prettier'],
+\   'markdown': ['prettier'],
 \}
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
@@ -265,6 +269,9 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+nmap <F8> <Plug>(ale_fix)
+nmap <leader>jj <Plug>(ale_next_wrap)
+nmap <leader>kk <Plug>(ale_previous_wrap)
 
 " 不弹出Scratch窗
 set completeopt-=previe

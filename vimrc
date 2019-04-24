@@ -209,6 +209,15 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
+" vim-javascript
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+set conceallevel=1
+
 " YouCompleteMe配置
 " 开启语义补全
 " let g:ycm_seed_identifiers_with_syntax=1

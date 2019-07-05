@@ -278,3 +278,4 @@ nmap <leader>kk <Plug>(ale_previous_wrap)
 
 " 不弹出Scratch窗
 set completeopt-=previe
+

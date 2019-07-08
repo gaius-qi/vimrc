@@ -4,6 +4,7 @@ set background=dark
 filetype off
 call plug#begin('~/.vim/plugged')
 set encoding=utf-8
+
 " 操作型插件
 Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
 Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>

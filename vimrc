@@ -104,7 +104,7 @@ set scrolloff=3 " 光标移动到buffer的顶部和底部时保持3行距离
 set novisualbell " 不要闪烁
 set laststatus=2 " 总是显示状态行
 set number " 显示行号
-set list listchars=trail:๏, " 方便显示tab 和 空格
+set list listchars=tab:▸>,trail:๏, " 方便显示tab 和 空格
 set autoindent " 继承前一行的缩进方式
 set smartindent " 智能自动缩进
 set cindent shiftwidth=2 " 自动缩进2空格

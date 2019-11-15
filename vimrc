@@ -12,39 +12,27 @@ Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
 Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换,oxcst, 切换窗口 <c-w>
 Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
 Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
-Plug 'mbbill/undotree'  "编辑文件的时光机器 打开,u 恢复上一步u 撤销 <c+r>
-Plug 'zivyangll/git-blame.vim' " 提供 Git Commit 信息 ,s
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
-Plug 'junegunn/gv.vim' " Git Commit 提示 " :GV, 当前文件:GV!
-Plug 'rking/ag.vim' " ,s 全局搜索
 
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
-Plug 'vim-scripts/trailing-whitespace' " 空格处理
 Plug 'pangloss/vim-javascript' " 语法高亮
 Plug 'groenewege/vim-less' " 语法高亮
 Plug 'posva/vim-vue' " 语法高亮
 Plug 'mxw/vim-jsx' " react jsx插件
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plug 'docunext/closetag.vim' " 提供标签自动闭合
 Plug 'leafgarland/typescript-vim' " TypeScript 支持
 Plug 'peitalin/vim-jsx-typescript' " tsx 支持
-Plug 'ashfinal/vim-colors-violet'
 
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go', { 'for': ['go']  }
 Plug 'tpope/vim-dispatch', { 'for': ['go']  }
 Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
-Plug 'tpope/vim-commentary'
-Plug 'w0ng/vim-hybrid'
-Plug 'Valloric/YouCompleteMe'
-Plug 'marijnh/tern_for_vim'
-Plug 'SirVer/ultisnips'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'dgryski/vim-godef'
 
 Plug '$HOME/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -67,10 +55,10 @@ set hidden " vim切换buffer(文件/tab)后仍然保留undo
 set autochdir "自动切换到文件所在文件夹
 set autoread "文件自动重载
 set autowrite " 文件自动保存
-set foldmethod=manual "启用缩进折叠
+set foldmethod=indent "启用缩进折叠
 set foldcolumn=0
-set foldlevel=3
-set foldenable
+set foldlevel=99
+set noautoindent
 set fenc=utf-8 " 设定默认解码
 set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 set nocompatible " 不要使用vi的键盘模式，而是vim自己的
@@ -104,7 +92,7 @@ set scrolloff=3 " 光标移动到buffer的顶部和底部时保持3行距离
 set novisualbell " 不要闪烁
 set laststatus=2 " 总是显示状态行
 set number " 显示行号
-set list listchars=tab:▸>,trail:๏, " 方便显示tab 和 空格
+set list listchars=trail:๏, " 方便显示tab 和 空格
 set autoindent " 继承前一行的缩进方式
 set smartindent " 智能自动缩进
 set cindent shiftwidth=2 " 自动缩进2空格
@@ -213,12 +201,6 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " vim-javascript
 set conceallevel=1
 
-" YouCompleteMe配置
-" 开启语义补全
-" let g:ycm_seed_identifiers_with_syntax=1
-let g:acp_enableAtStartup = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_key_list_select_completion = ['<Down>']
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 " For snippet_complete marker.
@@ -227,33 +209,15 @@ if has('conceal')
 endif
 " Disable the neosnippet preview candidate window
 set completeopt-=preview
-" 设置默认的.ycm_extra_conf.py文件
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_cache_omnifunc=0
-let g:ycm_server_keep_logfiles = 1
-" TypeScript 支持
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
-
-"在注释输入中也能补全
-let g:ycm_complete_in_comments=1
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_min_num_of_chars_for_completion=2
-
-"在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
-
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'nerdtree' : 1,
-      \}
 
 " Ale
+let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'javascript': ['prettier', 'eslint'],

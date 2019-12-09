@@ -1,223 +1,255 @@
+" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker nospell:
+
+" Plugins {{
 set nocompatible
 set shell=/bin/zsh
 set background=dark
 filetype off
 call plug#begin('~/.vim/plugged')
-set encoding=utf-8
-
-" 操作型插件
-Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
-Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
-Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
-Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换,oxcst, 切换窗口 <c-w>
-Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
-Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
-Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
-
-" 展示型插件
-Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
-Plug 'mhinz/vim-signify' " 显示文件变动
-Plug 'vim-airline/vim-airline' " 状态栏
-Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
-Plug 'pangloss/vim-javascript' " 语法高亮
-Plug 'groenewege/vim-less' " 语法高亮
-Plug 'posva/vim-vue' " 语法高亮
-Plug 'mxw/vim-jsx' " react jsx插件
-Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plug 'leafgarland/typescript-vim' " TypeScript 支持
-Plug 'peitalin/vim-jsx-typescript' " tsx 支持
-
-Plug 'fatih/vim-go', { 'for': ['go']  }
-Plug 'tpope/vim-dispatch', { 'for': ['go']  }
+Plug 'scrooloose/nerdtree',
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'dgryski/vim-godef'
-
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-dispatch', { 'for': ['go']  }
+Plug 'mbbill/undotree'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json', 'vue', 'markdown']  }
+Plug 'scrooloose/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'ap/vim-css-color', { 'for': ['css', 'less'] }
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'wsdjeg/FlyGrep.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'aklt/plantuml-syntax', { 'for': ['plantuml', 'puml', 'uml'] }
+Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug '$HOME/.fzf'
 Plug 'junegunn/fzf.vim'
 call plug#end()
-filetype plugin indent on
+filetype plugin indent on   " Automatically detect file types.
+" }}
 
-syntax on " 语法高亮
+" Basics {{
+syntax on                   " Syntax highlighting
+set synmaxcol=200
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing
+scriptencoding utf-8
+set fileencodings=ucs-bom,utf-8,euc-cn,cp936,default,latin1
+set clipboard=unnamed
 colorscheme dracula
-filetype plugin indent on " 为特定文件类型载入相关缩进文件
-filetype on " 载入文件类型插件
+set autowrite
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set history=1000                    " Store a ton of history (default is 20)
+set spell                           " Spell checking on
+set hidden                          " Allow buffer switching without saving
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
+" Instead of reverting the cursor to the last position in the buffer, we
+" set it to the first line when editing a git commit message
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+" Restore cursor
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+set tabpagemax=15               " Only show 15 tabs
+set showmode                    " Display the current mode
+" nocursorline is faster
+" set cursorline                  " Highlight current line
+highlight clear SignColumn      " SignColumn should match background
+highlight clear LineNr          " Current line number row will have same background color in relative mode
+highlight clear CursorLineNr    " Remove highlight color from current line number
+set ruler                   " Show the ruler
+set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+set showcmd                 " Show partial commands in status line and
+set laststatus=2
+set statusline=%<%f\                     " Filename
+set statusline+=%w%h%m%r                 " Options
+set statusline+=%{fugitive#statusline()} " Git Hotness
+set statusline+=\ [%{&ff}/%Y]            " Filetype
+set statusline+=\ [%{getcwd()}]          " Current dir
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set number                      " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set nospell
+" set backup
+set undofile                    " So is persistent undo ...
+set undolevels=1000             " Maximum number of changes that can be undone
+set undoreload=10000            " Maximum number lines to save for undo on a buffer reload
+set foldlevel=4
+" set foldmethod=syntax
+set foldmethod=marker "faster
+set nowrap                      " Do not wrap long lines
+set autoindent                  " Indent at the same level of the previous line
+set shiftwidth=2                " Use indents of 2 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=2                   " An indentation every two columns
+set softtabstop=2               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current
+set pastetoggle=<F4>            " pastetoggle (sane indentation on pastes)
+autocmd FileType c,cpp,java,javascript,python,rust,xml,yml,perl,sql,json,css,html autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+" }}
 
-set ttyfast
-set lazyredraw
-set clipboard=unnamed " Mac 下共享剪切板
-set undofile " vim退出并在下次打开后仍然保留上次的undo历史
-set undodir=$HOME/.vim/undo " 需要提前创建该目录，否则不会生效
-set undolevels=1000 " max number of undos
-set undoreload=10000 " max lines to to save for undo
-set hidden " vim切换buffer(文件/tab)后仍然保留undo
-set autochdir "自动切换到文件所在文件夹
-set autoread "文件自动重载
-set autowrite " 文件自动保存
-set foldmethod=indent "启用缩进折叠
-set foldcolumn=0
-set foldlevel=99
-set noautoindent
-set fenc=utf-8 " 设定默认解码
-set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
-set nocompatible " 不要使用vi的键盘模式，而是vim自己的
-set history=1000 " history文件中需要记录的行数
-set confirm " 在处理未保存或只读文件的时候，弹出确认
-set viminfo+=! " 保存全局变量
-set iskeyword+=_,$,@,%,#,- " 带有如下符号的单词不要被换行分割
-set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h18 "设置字体
-set magic " 设置魔术
-set nobackup " 不要备份文件
-set nowb
-set bufhidden=hide
-set linespace=0 " 字符间插入的像素行数目
-set wildmenu " 增强模式中的命令行自动完成操作
-set showcmd  " 输入的命令显示出来，看的清楚些
-set cmdheight=1 " 命令行（在状态行下）的高度，默认为1，这里是2
-set backspace=2 " 使回格键（backspace）正常处理indent, eol, start等
-set whichwrap+=<,>,h,l " 允许backspace和光标键跨越行边界
-set mouse=a " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
-set shortmess=atI " 启动的时候不显示那个援助索马里儿童的提示
-set report=0 " 通过使用: commands命令，告诉我们文件的哪一行被改变过
-set noerrorbells " 不让vim发出的滴滴声
-set showmatch " 高亮显示匹配的括号
-set matchtime=2 " 匹配括号高亮的时间（单位是十分之一秒）
-set ignorecase " 在搜索的时候忽略大小写
-set ru "标尺信息
-set ai " 自动缩进
-set hlsearch  "搜索逐字符高亮
-set incsearch " 在搜索时，输入的词句的逐字符高亮（类似firefox的搜索）
-set scrolloff=3 " 光标移动到buffer的顶部和底部时保持3行距离
-set novisualbell " 不要闪烁
-set laststatus=2 " 总是显示状态行
-set number " 显示行号
-set list listchars=trail:๏, " 方便显示tab 和 空格
-set autoindent " 继承前一行的缩进方式
-set smartindent " 智能自动缩进
-set cindent shiftwidth=2 " 自动缩进2空格
-set tabstop=2 " 制表符为2
-set softtabstop=2 " 统一缩进为2
-set shiftwidth=2 " 统一缩进为2
-set expandtab " 用空格代替制表符
-set wrap " 换行
-set smarttab " 在行和段开始处使用制表符
-set background=dark
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set fillchars+=stl:\ ,stlnc:\
-set t_Co=256
-set fo+=mB "对亚洲语言断行支持
+" Key (re)Mappings {{
+let mapleader = ','
+let maplocalleader = '_'
+map <S-H> gT
+map <S-L> gt
+map <left> gT
+map <right> gt
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+noremap <F2> <C-w>T
+noremap j gj
+noremap k gk
+nnoremap Y y$
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+" Shortcuts
+" Change Working Directory to that of the current file
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+" Allow using the repeat operator with a visual selection (!)
+vnoremap . :normal .<CR>
+cmap w!! w !sudo tee % >/dev/null
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <Leader>= <C-w>=
+map zl zL
+map zh zH
+function! WrapRelativeMotion(key, ...)
+  let vis_sel=""
+  if a:0
+    let vis_sel="gv"
+  endif
+  if &wrap
+    execute "normal!" vis_sel . "g" . a:key
+  else
+    execute "normal!" vis_sel . a:key
+  endif
+endfunction
+noremap $ :call WrapRelativeMotion("$")<CR>
+noremap <End> :call WrapRelativeMotion("$")<CR>
+noremap 0 :call WrapRelativeMotion("0")<CR>
+noremap <Home> :call WrapRelativeMotion("0")<CR>
+noremap ^ :call WrapRelativeMotion("^")<CR>
+onoremap $ v:call WrapRelativeMotion("$")<CR>
+onoremap <End> v:call WrapRelativeMotion("$")<CR>
+vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
+vnoremap <End> :<C-U>call WrapRelativeMotion("$", 1)<CR>
+vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
+vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
+vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
+" Stupid shift key fixes
+if has("user_commands")
+  command! -bang -nargs=* -complete=file E e<bang> <args>
+  command! -bang -nargs=* -complete=file W w<bang> <args>
+  command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+  command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+  command! -bang Wa wa<bang>
+  command! -bang WA wa<bang>
+  command! -bang Q q<bang>
+  command! -bang QA qa<bang>
+  command! -bang Qa qa<bang>
+endif
+cmap Tabe tabe
+" }}
 
-let b:javascript_fold=1  "打开javascript折叠
-let javascript_enable_domhtmlcss=1 "打开javascript对dom、html和css的支持
-let g:molokai_original = 1 "设置颜色
-let mapleader = ","  " map leader键设置
-let g:mapleader = ","
-let b:javascript_fold=1 " 打开javascript折叠
-let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
-let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
-let g:ctrlp_working_path_mode = 'ra' " ctrlp插件配置
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|coverage|target|dist)|(\.(swp|ico|git|svn))$' " ctrlp插件配置
-let g:indent_guides_enable_on_vim_startup=1 " vim-indent-guides 随 vim 自启动
-let g:indent_guides_guide_size=1 " vim-indent-guides 色块宽度
-let g:indent_guides_start_level=2 " vim-indent-guides
-let g:indent_guides_auto_colors = 0 " 手动配色
-hi IndentGuidesOdd  ctermbg=black " 奇数列设置为黑色
-let g:gundo_right = 1 " gundo插件
-let g:jsx_ext_required = 0 " vim-jsx插件 让js文件也支持jsx插件
-let g:vim_markdown_frontmatter=1 " vim-markdown
-let g:vim_markdown_toc_autofit = 1 " vim-markdown
-let g:vim_markdown_folding_disabled=1 " vim-markdown
+" Plugins configs {{
+"
+" vim-javascript
+set conceallevel=1
+" Nerdcommenter
+let g:NERDSpaceDelims = 1
+vmap gc <Plug>NERDCommenterToggle
+" NerdTree
+let g:NERDShutUp=1
+map <C-e> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1 " The-NERD-tree
 let NERDTreeShowFiles=1 " The-NERD-tree
 let NERDTreeWinPos=1 " The-NERD-tree
 let NERDTreeWinPos="left" " The-NERD-tree
 let NERDTreeShowLineNumbers=1 " The-NERD-tree
-let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ] "ignore files in NERDTree " The-NERD-tree
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$'
+      \, '\.idea$', 'node_modules$', 'coverage$', 'assembly$', '\.react_entries$', '\.chair-react$'
+      \, '\.nyc_output$', 'logs$', 'render_cache$']
 let NERDTreeShowBookmarks=1 " The-NERD-tree
 let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
-
-autocmd! bufwritepost .vimrc source %
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行
-autocmd InsertEnter * se cul
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css " vim-vue插件
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript " TypeScript 插件
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx " tsx 支持
-" autocmd VimEnter * NERDTree | wincmd p " The-NERD-tree 默认启动，打开后光标在编辑文件中
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " 自动关闭
-au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd  " vim-markdown
-
-map <Leader>w :NERDTreeToggle<CR>
-nmap <Leader>u :UndotreeToggle<CR>
-nmap <leader>h :Toc<cr>
-nmap <Leader>c :<C-u>call gitblame#echo()<CR>
-nmap <leader>a :Ag! -w "<cword>"<cr> "用 ,a 搜索当前 cursor 下单词
-nmap <C-A> :<c-C>ggVG
-nmap <S-l> gt
-nmap <S-h> gT
-nmap <C-l> <C-w>l
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-
-" Change cursor shape between insert and normal mode in iTerm2.app
-if $TERM_PROGRAM =~ "iTerm"
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-endif
-
-" NerdTree
-let g:NERDShutUp=1
-map <C-e> :NERDTreeToggle<CR>
-
-" store swap files in a single directory instead of the current directory with the 'dir' setting
-set dir=$HOME/.vim/tmp/swap
-if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
-
-" fzf
-let g:fzf_layout = { 'down': '50%' }
-nnoremap <C-O> :FZF<CR>
-nnoremap <C-P> :GFiles<CR>
-
-" OmniComplete
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-        \if &omnifunc == "" |
-        \setlocal omnifunc=syntaxcomplete#Complete |
-        \endif
-endif
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" vim-javascript
-set conceallevel=1
-
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-" Disable the neosnippet preview candidate window
+" JSON
+nmap <leader>jt <Esc>:%!xargs -0 node -e "console.log(JSON.stringify(JSON.parse(process.argv[1]), null, 2));"<CR><Esc>:set filetype=json<CR>
+" UndoTree
+nnoremap <Leader>u :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle=1
+" Fugitive
+nnoremap <silent> <leader>gg :SignifyToggle<CR>
+" YouCompleteMe
+let g:acp_enableAtStartup = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_stop_completion = ['<C-k>']
+let g:ycm_key_list_select_completion = [] " leave tab for ultisnips
 set completeopt-=preview
-
+" ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" Indent_guides
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+" Vim-airline
+" let g:airline_left_sep='›'
+" let g:airline_right_sep='‹'
+" Signify
+let g:signify_vcs_list=['git']
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+" Buffergator
+let g:buffergator_viewport_split_policy="B"
+let g:buffergator_split_size=10
+let g:buffergator_suppress_keymaps=1
+nnoremap <C-B> :BuffergatorToggle<CR>
 " Ale
-let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-augroup FiletypeGroup
-    autocmd!
-    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END
-
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'javascript': ['prettier', 'eslint'],
@@ -240,7 +272,80 @@ let g:ale_set_quickfix = 1
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)
+" fzf
+let g:fzf_layout = { 'down': '50%' }
+" nnoremap <C-P> :GFiles<CR>
+nnoremap <C-F> :FlyGrep<cr>
+nnoremap <C-P> :FZF<CR>
+" }}
 
-" 不弹出Scratch窗
-set completeopt-=previe
+" Functions {{
+function! InitializeDirectories()
+  let parent = $HOME
+  let prefix = 'vim'
+  let dir_list = {
+    \ 'swap': 'directory',
+    \ 'undo': 'undodir' }
+  let common_dir = parent . '/.' . prefix
+  for [dirname, settingname] in items(dir_list)
+    let directory = common_dir . dirname . '/'
+    if exists("*mkdir")
+      if !isdirectory(directory)
+        call mkdir(directory)
+      endif
+    endif
+    if !isdirectory(directory)
+      echo "Warning: Unable to create backup directory: " . directory
+      echo "Try: mkdir -p " . directory
+    else
+      let directory = substitute(directory, " ", "\\\\ ", "g")
+      exec "set " . settingname . "=" . directory
+    endif
+  endfor
+endfunction
+call InitializeDirectories()
+function! StripTrailingWhitespace()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " do the business:
+  %s/\s\+$//e
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+" Cycle metasyntactic variables
+function! s:CycleMetasyntacticVariables(num)
+  if type(a:num) != type(0)
+    return
+  endif
 
+  let vars = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred', 'plugh', 'xyzzy', 'thud']
+  let cvar = expand('<cword>')
+  let i = index(vars, cvar)
+
+  if (i == -1)
+    if (a:num > 0)
+      execute "normal! \<C-a>"
+    else
+      execute "normal! \<C-x>"
+    endif
+
+    return
+  endif
+
+  let i += a:num
+
+  if (i == -1)
+    let i = len(vars) - 1
+  elseif (i == len(vars))
+    let i = 0
+  endif
+
+  call setreg('w', vars[i])
+  normal! "_viw"wp
+endfunction
+
+nnoremap <C-a> :call <SID>CycleMetasyntacticVariables(1)<Enter>
+nnoremap <C-x> :call <SID>CycleMetasyntacticVariables(-1)<Enter>

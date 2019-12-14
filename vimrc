@@ -29,10 +29,11 @@ Plug 'peitalin/vim-jsx-typescript' " tsx 支持
 
 Plug 'fatih/vim-go', { 'for': ['go']  }
 Plug 'tpope/vim-dispatch', { 'for': ['go']  }
+Plug 'dgryski/vim-godef'
+
 Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug 'dgryski/vim-godef'
 
 Plug '$HOME/.fzf'
 Plug 'junegunn/fzf.vim'

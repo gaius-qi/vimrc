@@ -26,6 +26,7 @@ Plug 'mxw/vim-jsx' " react jsx插件
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'leafgarland/typescript-vim' " TypeScript 支持
 Plug 'peitalin/vim-jsx-typescript' " tsx 支持
+Plug 'wsdjeg/FlyGrep.vim'
 
 Plug 'fatih/vim-go', { 'for': ['go']  }
 Plug 'tpope/vim-dispatch', { 'for': ['go']  }
@@ -181,6 +182,7 @@ if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 let g:fzf_layout = { 'down': '50%' }
 nnoremap <C-O> :FZF<CR>
 nnoremap <C-P> :GFiles<CR>
+nnoremap <C-F> :FlyGrep<CR>
 
 " OmniComplete
 if has("autocmd") && exists("+omnifunc")

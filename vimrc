@@ -9,7 +9,7 @@ set encoding=utf-8
 Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
 Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
 Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
-Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换,oxcst, 切换窗口 <c-w>
+Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换 ,oxcst, 切换窗口 <c-w>
 Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
 Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit

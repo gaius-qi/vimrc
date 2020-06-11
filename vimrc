@@ -13,6 +13,8 @@ Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换 ,oxcst, 切换窗
 Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
 Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
+Plug 'junegunn/vim-xmark', {'do': 'make', 'for': 'markdown'}
+Plug 'buoto/gotests-vim' " 生成 golang 测试代码
 
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
@@ -128,9 +130,6 @@ let g:indent_guides_auto_colors = 0 " 手动配色
 " hi IndentGuidesOdd  ctermbg=black " 奇数列设置为黑色
 let g:gundo_right = 1 " gundo插件
 let g:jsx_ext_required = 0 " vim-jsx插件 让js文件也支持jsx插件
-let g:vim_markdown_frontmatter=1 " vim-markdown
-let g:vim_markdown_toc_autofit = 1 " vim-markdown
-let g:vim_markdown_folding_disabled=1 " vim-markdown
 let NERDTreeShowHidden=1 " The-NERD-tree
 let NERDTreeShowFiles=1 " The-NERD-tree
 let NERDTreeWinPos=1 " The-NERD-tree
@@ -150,7 +149,6 @@ autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript " TypeScript 插件
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx " tsx 支持
 " autocmd VimEnter * NERDTree | wincmd p " The-NERD-tree 默认启动，打开后光标在编辑文件中
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " 自动关闭
-au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd  " vim-markdown
 
 map <Leader>w :NERDTreeToggle<CR>
 nmap <Leader>u :UndotreeToggle<CR>

@@ -141,6 +141,23 @@ let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 
+"==============================================================================
+" vim-go 插件
+"==============================================================================
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:godef_split=2
+
 autocmd! bufwritepost .vimrc source %
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行
 autocmd InsertEnter * se cul
@@ -214,7 +231,6 @@ set completeopt-=preview
 
 " Ale
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 augroup FiletypeGroup
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
@@ -223,6 +239,8 @@ augroup END
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'javascript': ['prettier', 'eslint'],
+\   'jsx': ['stylelint', 'eslint'],
+\   'go': ['golint', 'golangci-lint'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
@@ -231,6 +249,7 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'markdown': ['prettier'],
+\   'go': ['gofmt']
 \}
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'

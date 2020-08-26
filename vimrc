@@ -35,7 +35,7 @@ Plug 'tpope/vim-dispatch', { 'for': ['go']  }
 Plug 'dgryski/vim-godef'
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json']  }
+Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json', 'go']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 Plug '$HOME/.fzf'
@@ -144,7 +144,6 @@ let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 "==============================================================================
 " vim-go 插件
 "==============================================================================
-let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_version_warning = 1
@@ -240,7 +239,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'javascript': ['prettier', 'eslint'],
 \   'jsx': ['stylelint', 'eslint'],
-\   'go': ['golint', 'golangci-lint'],
+\   'go': ['golint', 'golangci-lint', 'gobuild', 'gofmt', 'govet'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
@@ -249,8 +248,15 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'markdown': ['prettier'],
-\   'go': ['gofmt']
+\   'go': ['gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
 \}
+
+" Run linters only when I save files
+" https://github.com/dense-analysis/ale#5xii-how-can-i-run-linters-only-when-i-save-files
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -258,6 +264,7 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)

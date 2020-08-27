@@ -115,20 +115,15 @@ set listchars=tab:--
 
 let b:javascript_fold=1  "打开javascript折叠
 let javascript_enable_domhtmlcss=1 "打开javascript对dom、html和css的支持
-let g:molokai_original = 1 "设置颜色
 let mapleader = ","  " map leader键设置
 let g:mapleader = ","
 let b:javascript_fold=1 " 打开javascript折叠
 let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
-let g:ctrlp_working_path_mode = 'ra' " ctrlp插件配置
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|coverage|target|dist)|(\.(swp|ico|git|svn))$' " ctrlp插件配置
 let g:indent_guides_enable_on_vim_startup=1 " vim-indent-guides 随 vim 自启动
 let g:indent_guides_guide_size=1 " vim-indent-guides 色块宽度
 let g:indent_guides_start_level=2 " vim-indent-guides
 let g:indent_guides_auto_colors = 0 " 手动配色
-" hi IndentGuidesOdd  ctermbg=black " 奇数列设置为黑色
-let g:gundo_right = 1 " gundo插件
 let g:jsx_ext_required = 0 " vim-jsx插件 让js文件也支持jsx插件
 let NERDTreeShowHidden=1 " The-NERD-tree
 let NERDTreeShowFiles=1 " The-NERD-tree
@@ -144,6 +139,8 @@ let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 "==============================================================================
 " vim-go 插件
 "==============================================================================
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1 " 不弹出 quickfix 窗口
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_version_warning = 1
@@ -216,15 +213,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-" vim-javascript
-set conceallevel=1
-
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
 " Disable the neosnippet preview candidate window
 set completeopt-=preview
 
@@ -248,7 +236,6 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'markdown': ['prettier'],
-\   'go': ['gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
 \}
 
 " Run linters only when I save files
@@ -268,7 +255,3 @@ let g:ale_set_quickfix = 1
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)
-
-" 不弹出Scratch窗
-set completeopt-=previe
-

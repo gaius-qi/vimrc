@@ -254,6 +254,7 @@ let g:ale_lint_on_enter = 0
 
 " ALE 运行 golangci-lint run main.go
 " 使用项目内 .golangci.yaml 配置文件 lint
+" 项目内必须要有 .golangci.yaml 文件否则没有 lint
 let g:ale_go_golangci_lint_options =''
 
 let g:ale_fix_on_save = 1

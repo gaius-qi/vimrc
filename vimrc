@@ -227,7 +227,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'javascript': ['prettier', 'eslint'],
 \   'jsx': ['stylelint', 'eslint'],
-\   'go': ['golint', 'golangci-lint', 'gobuild', 'gofmt', 'govet'],
+\   'go': ['golangci-lint'],
 \}
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
@@ -243,6 +243,18 @@ let g:ale_fixers = {
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
+
+"==============================================================================
+" ALE & golangci-lint
+"==============================================================================
+" configuration: golangci-lint run -h
+" ALE 运行 golangci-lint run --no-config --enable-all main.go 
+" 不使用项目内 .golangci.yaml 配置文件 lint，--enable-all 开启所有 linters
+" let g:ale_go_golangci_lint_options ='--no-config --enable-all'
+
+" ALE 运行 golangci-lint run main.go
+" 使用项目内 .golangci.yaml 配置文件 lint
+let g:ale_go_golangci_lint_options =''
 
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'

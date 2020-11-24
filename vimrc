@@ -14,28 +14,28 @@ Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，�
 Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
 Plug 'junegunn/vim-xmark', {'do': 'make', 'for': 'markdown'}
-Plug 'buoto/gotests-vim' " 生成 golang 测试代码
+Plug 'buoto/gotests-vim', { 'for': ['go']  } " 生成 golang 测试代码
 
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
-Plug 'pangloss/vim-javascript' " 语法高亮
-Plug 'groenewege/vim-less' " 语法高亮
-Plug 'posva/vim-vue' " 语法高亮
-Plug 'mxw/vim-jsx' " react jsx插件
+Plug 'pangloss/vim-javascript', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'] } " 语法高亮
+Plug 'groenewege/vim-less', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'sass']  } " 语法高亮
+Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
+Plug 'mxw/vim-jsx', { 'for': ['javascriptreact', 'typescriptreact'] } " react jsx插件
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plug 'leafgarland/typescript-vim' " TypeScript 支持
-Plug 'peitalin/vim-jsx-typescript' " tsx 支持
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] } " TypeScript 支持
+Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescriptreact'] } " tsx 支持
 Plug 'wsdjeg/FlyGrep.vim'
 
 Plug 'fatih/vim-go', { 'for': ['go']  }
 Plug 'tpope/vim-dispatch', { 'for': ['go']  }
-Plug 'dgryski/vim-godef'
+Plug 'dgryski/vim-godef', { 'for': ['go']  }
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['javascript', 'css', 'less', 'json', 'go']  }
+Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'json', 'go']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 Plug '$HOME/.fzf'
@@ -160,7 +160,6 @@ autocmd InsertLeave * se nocul  " 用浅色高亮当前行
 autocmd InsertEnter * se cul
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css " vim-vue插件
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript " TypeScript 插件
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx " tsx 支持
 " autocmd VimEnter * NERDTree | wincmd p " The-NERD-tree 默认启动，打开后光标在编辑文件中
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " 自动关闭
 
@@ -217,28 +216,18 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " Disable the neosnippet preview candidate window
 set completeopt-=preview
 
-" Ale
-let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-augroup FiletypeGroup
-    autocmd!
-    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END
+"==============================================================================
+" ALE tslint
+"==============================================================================
+" ale with typescript
+" https://github.com/dense-analysis/ale/blob/master/doc/ale-typescript.txt
+let g:ale_typescript_tslint_use_global = 1
+let g:ale_typescript_tslint_config_path = $HOME . '/.tslint.json'
+let g:ale_typescript_tslint_executable = 'tslint'
 
-let g:airline#extensions#ale#enabled = 1
-let g:ale_linters = {
-\   'javascript': ['prettier', 'eslint'],
-\   'jsx': ['stylelint', 'eslint'],
-\   'go': ['golangci-lint'],
-\}
-let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'vue': ['prettier', 'eslint'],
-\   'json': ['prettier'],
-\   'css': ['prettier'],
-\   'less': ['prettier'],
-\   'markdown': ['prettier'],
-\}
-
+"==============================================================================
+" ALE linter
+"==============================================================================
 " Run linters only when I save files
 " https://github.com/dense-analysis/ale#5xii-how-can-i-run-linters-only-when-i-save-files
 let g:ale_lint_on_text_changed = 'never'
@@ -246,18 +235,17 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 
 "==============================================================================
-" ALE & golangci-lint
+" ALE golangci-lint
 "==============================================================================
 " configuration: golangci-lint run -h
 " ALE 运行 golangci-lint run --no-config --enable-all main.go 
 " 不使用项目内 .golangci.yaml 配置文件 lint，--enable-all 开启所有 linters
 " let g:ale_go_golangci_lint_options ='--no-config --enable-all'
-
+"
 " ALE 运行 golangci-lint run main.go
 " 使用项目内 .golangci.yaml 配置文件 lint
 " 项目内必须要有 .golangci.yaml 文件否则没有 lint
 let g:ale_go_golangci_lint_options =''
-
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -265,6 +253,32 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_linters = {
+\   'javascript': ['tsserver', 'eslint'],
+\   'javascriptreact': ['tslint', 'tsserver', 'eslint'],
+\   'typescript': ['tslint', 'tsserver', 'eslint'],
+\   'typescriptreact': ['tslint', 'tsserver', 'eslint'],
+\   'go': ['golangci-lint'],
+\}
+
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   'javascriptreact': ['prettier', 'tslint', 'eslint'],
+\   'typescript': ['prettier', 'tslint', 'eslint'],
+\   'typescriptreact': ['prettier', 'tslint', 'eslint'],
+\   'vue': ['prettier', 'eslint'],
+\   'json': ['prettier'],
+\   'css': ['prettier'],
+\   'less': ['prettier'],
+\   'scss': ['prettier'],
+\   'sass': ['prettier'],
+\   'html': ['prettier'],
+\   'yaml': ['prettier'],
+\   'markdown': ['prettier'],
+\}
 
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)

@@ -41,12 +41,11 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '$HOME/.fzf'
 Plug 'junegunn/fzf.vim'
 call plug#end()
-filetype plugin indent on
+filetype plugin indent on " 为特定文件类型载入相关缩进文件
+filetype on " 载入文件类型插件
 
 syntax on " 语法高亮
 colorscheme dracula
-filetype plugin indent on " 为特定文件类型载入相关缩进文件
-filetype on " 载入文件类型插件
 
 set ttyfast
 set lazyredraw
@@ -212,9 +211,20 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Disable the neosnippet preview candidate window
 set completeopt-=preview
+
+"==============================================================================
+" ALE fixjson
+"==============================================================================
+" ale with json
+" https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt
+let g:ale_json_fixjson_use_global = 1
+let g:ale_json_fixjson_executable = 'fixjson'
+let g:ale_json_jsonlint_use_global = 1
+let g:ale_json_jsonlint_executable = 'jsonlint'
 
 "==============================================================================
 " ALE tslint
@@ -262,6 +272,7 @@ let g:ale_linters = {
 \   'typescript': ['tslint', 'tsserver', 'eslint'],
 \   'typescriptreact': ['tslint', 'tsserver', 'eslint'],
 \   'go': ['golangci-lint'],
+\   'json': ['jsonlint'],
 \}
 
 let g:ale_fixers = {
@@ -270,7 +281,7 @@ let g:ale_fixers = {
 \   'typescript': ['prettier', 'tslint', 'eslint'],
 \   'typescriptreact': ['prettier', 'tslint', 'eslint'],
 \   'vue': ['prettier', 'eslint'],
-\   'json': ['prettier'],
+\   'json': ['prettier', 'fixjson'],
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'scss': ['prettier'],

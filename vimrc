@@ -217,14 +217,12 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set completeopt-=preview
 
 "==============================================================================
-" ALE fixjson
+" ALE fixjson & jsonlint
 "==============================================================================
 " ale with json
 " https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt
 let g:ale_json_fixjson_use_global = 1
-let g:ale_json_fixjson_executable = 'fixjson'
 let g:ale_json_jsonlint_use_global = 1
-let g:ale_json_jsonlint_executable = 'jsonlint'
 
 "==============================================================================
 " ALE tslint
@@ -287,8 +285,8 @@ let g:ale_fixers = {
 \   'scss': ['prettier'],
 \   'sass': ['prettier'],
 \   'html': ['prettier'],
-\   'yaml': ['prettier'],
 \   'markdown': ['prettier'],
+\   'yaml': ['prettier'],
 \}
 
 nmap <F8> <Plug>(ale_fix)

@@ -217,14 +217,28 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set completeopt-=preview
 
 "==============================================================================
-" ALE fixjson
+" ALE default
+"==============================================================================
+" ale default configuration
+" https://github.com/dense-analysis/ale/blob/master/doc/ale.txt
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_max_signs = 10
+let g:ale_echo_delay = 100
+let g:airline#extensions#ale#enabled = 1
+
+"==============================================================================
+" ALE fixjson & jsonlint
 "==============================================================================
 " ale with json
 " https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt
 let g:ale_json_fixjson_use_global = 1
-let g:ale_json_fixjson_executable = 'fixjson'
 let g:ale_json_jsonlint_use_global = 1
-let g:ale_json_jsonlint_executable = 'jsonlint'
 
 "==============================================================================
 " ALE tslint
@@ -256,15 +270,6 @@ let g:ale_lint_on_enter = 0
 " 使用项目内 .golangci.yaml 配置文件 lint
 " 项目内必须要有 .golangci.yaml 文件否则没有 lint
 let g:ale_go_golangci_lint_options =''
-let g:ale_fix_on_save = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-
-let g:airline#extensions#ale#enabled = 1
 
 let g:ale_linters = {
 \   'javascript': ['tsserver', 'eslint'],
@@ -287,8 +292,8 @@ let g:ale_fixers = {
 \   'scss': ['prettier'],
 \   'sass': ['prettier'],
 \   'html': ['prettier'],
-\   'yaml': ['prettier'],
 \   'markdown': ['prettier'],
+\   'yaml': ['prettier'],
 \}
 
 nmap <F8> <Plug>(ale_fix)

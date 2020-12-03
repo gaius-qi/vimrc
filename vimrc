@@ -1,5 +1,5 @@
 set nocompatible
-set shell=/bin/fish
+set shell=/bin/zsh
 set background=dark
 filetype off
 call plug#begin('~/.vim/plugged')

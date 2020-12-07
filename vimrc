@@ -157,10 +157,19 @@ let g:godef_same_file_in_same_window=1
 autocmd! bufwritepost .vimrc source %
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行
 autocmd InsertEnter * se cul
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css " vim-vue插件
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript " TypeScript 插件
-" autocmd VimEnter * NERDTree | wincmd p " The-NERD-tree 默认启动，打开后光标在编辑文件中
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif " 自动关闭
+
+" vim-vue插件
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
+
+" TypeScript 插件
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+
+" nerdtree 自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"  nginx highlight
+"  https://gist.github.com/ralavay/c4c7750795ccfd72c2db
+autocmd BufRead,BufNewFile /etc/nginx/*,/etc/nginx/conf.d/*,/usr/local/nginx/conf/*,*.conf if &ft == '' | set filetype=nginx | endif
 
 map <Leader>w :NERDTreeToggle<CR>
 nmap <Leader>u :UndotreeToggle<CR>

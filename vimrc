@@ -37,9 +37,8 @@ Plug 'dgryski/vim-godef', { 'for': ['go']  }
 Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'json', 'go']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
-Plug '$HOME/.fzf'
-Plug 'junegunn/fzf.vim'
+Plug '~/.fzf'
+Plug 'junegunn/fzf'
 call plug#end()
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
@@ -56,6 +55,7 @@ set undolevels=1000 " max number of undos
 set undoreload=10000 " max lines to to save for undo
 set hidden " vim切换buffer(文件/tab)后仍然保留undo
 set autochdir "自动切换到文件所在文件夹
+set rtp+=~/.fzf
 set autoread "文件自动重载
 set autowrite " 文件自动保存
 set foldmethod=indent "启用缩进折叠

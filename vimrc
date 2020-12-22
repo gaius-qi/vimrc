@@ -305,11 +305,6 @@ let g:ale_fixers = {
 \   'yaml': ['prettier'],
 \}
 
-"==============================================================================
-" COC
-"==============================================================================
-let g:coc_node_path = trim(system('which node'))
-
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)

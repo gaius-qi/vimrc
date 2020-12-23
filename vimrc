@@ -70,7 +70,7 @@ set confirm " 在处理未保存或只读文件的时候，弹出确认
 set viminfo+=! " 保存全局变量
 set iskeyword+=_,$,@,%,#,- " 带有如下符号的单词不要被换行分割
 set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h18 "设置字体
-set magic " 设置魔术
+set magic
 set nobackup " 不要备份文件
 set nowb
 set bufhidden=hide

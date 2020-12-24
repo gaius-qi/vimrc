@@ -6,7 +6,6 @@ call plug#begin('~/.vim/plugged')
 set encoding=utf-8
 
 " 操作型插件
-Plug 'mbriggs/mark.vim' " ,m高亮 ,n去除高亮 ,/下一个标签
 Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
 Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
 Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换 ,oxcst, 切换窗口 <c-w>
@@ -20,11 +19,9 @@ Plug 'buoto/gotests-vim', { 'for': ['go']  } " 生成 golang 测试代码
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'vim-airline/vim-airline' " 状态栏
-Plug 'nathanaelkane/vim-indent-guides' " 可视化缩进插件
 Plug 'pangloss/vim-javascript', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'] } " 语法高亮
 Plug 'groenewege/vim-less', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'sass']  } " 语法高亮
 Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
-Plug 'mxw/vim-jsx', { 'for': ['javascriptreact', 'typescriptreact'] } " react jsx插件
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] } " TypeScript 支持
 Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescriptreact'] } " tsx 支持
@@ -112,18 +109,11 @@ set t_Co=256
 set fo+=mB "对亚洲语言断行支持
 set listchars=tab:--
 
-let b:javascript_fold=1  "打开javascript折叠
-let javascript_enable_domhtmlcss=1 "打开javascript对dom、html和css的支持
 let mapleader = ","  " map leader键设置
 let g:mapleader = ","
 let b:javascript_fold=1 " 打开javascript折叠
 let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
-let g:indent_guides_enable_on_vim_startup=1 " vim-indent-guides 随 vim 自启动
-let g:indent_guides_guide_size=1 " vim-indent-guides 色块宽度
-let g:indent_guides_start_level=2 " vim-indent-guides
-let g:indent_guides_auto_colors = 0 " 手动配色
-let g:jsx_ext_required = 0 " vim-jsx插件 让js文件也支持jsx插件
 let NERDTreeShowHidden=1 " The-NERD-tree
 let NERDTreeShowFiles=1 " The-NERD-tree
 let NERDTreeWinPos=1 " The-NERD-tree
@@ -154,22 +144,11 @@ let g:go_highlight_generate_tags = 1
 let g:godef_split=3
 let g:godef_same_file_in_same_window=1
 
-autocmd! bufwritepost .vimrc source %
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行
-autocmd InsertEnter * se cul
-
 " vim-vue插件
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
 
-" TypeScript 插件
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-"  nginx highlight
-"  https://gist.github.com/ralavay/c4c7750795ccfd72c2db
-autocmd BufRead,BufNewFile /etc/nginx/*,/etc/nginx/conf.d/*,/usr/local/nginx/conf/*,*.conf if &ft == '' | set filetype=nginx | endif
 
 " auto format json
 autocmd FileType json autocmd BufWritePre <buffer> call FormatJSON()
@@ -244,7 +223,6 @@ let g:ale_sign_warning = '⚠'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_max_signs = 10
-let g:ale_echo_delay = 100
 let g:airline#extensions#ale#enabled = 1
 
 "==============================================================================
@@ -304,4 +282,3 @@ let g:ale_fixers = {
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)
-

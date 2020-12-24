@@ -10,21 +10,17 @@ Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
 Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
 Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换 ,oxcst, 切换窗口 <c-w>
 Plug 'mattn/emmet-vim' " HTML生成<c-y>, 选中标签<c-y>d，跳转<c-y>n，注释：<c-y>/，合并标签：<c-y>j，移除标签对：<c-y>k
-Plug 'tpope/vim-surround' " 换 cs"' 删 ds" 增 ysiw) 多空格 ysiw( 整行 yss
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
 Plug 'junegunn/vim-xmark', {'do': 'make', 'for': 'markdown'}
-Plug 'buoto/gotests-vim', { 'for': ['go']  } " 生成 golang 测试代码
 
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
+Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescriptreact'] }
 Plug 'vim-airline/vim-airline' " 状态栏
-Plug 'pangloss/vim-javascript', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact'] } " 语法高亮
-Plug 'groenewege/vim-less', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'sass']  } " 语法高亮
+Plug 'pangloss/vim-javascript', { 'for': ['vue', 'javascript'] } " 语法高亮
 Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] } " TypeScript 支持
-Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescriptreact'] } " tsx 支持
 Plug 'wsdjeg/FlyGrep.vim'
 
 Plug 'fatih/vim-go', { 'for': ['go']  }
@@ -258,18 +254,15 @@ let g:ale_lint_on_enter = 0
 let g:ale_go_golangci_lint_options =''
 
 let g:ale_linters = {
-\   'javascript': ['tsserver', 'eslint'],
-\   'javascriptreact': ['tslint', 'tsserver', 'eslint'],
-\   'typescript': ['tslint', 'tsserver', 'eslint'],
-\   'typescriptreact': ['tslint', 'tsserver', 'eslint'],
+\   'javascript': ['eslint'],
 \   'go': ['golangci-lint'],
 \}
 
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
-\   'javascriptreact': ['prettier', 'tslint', 'eslint'],
-\   'typescript': ['prettier', 'tslint', 'eslint'],
-\   'typescriptreact': ['prettier', 'tslint', 'eslint'],
+\   'javascriptreact': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'typescriptreact': ['prettier', 'eslint'],
 \   'vue': ['prettier', 'eslint'],
 \   'css': ['prettier'],
 \   'less': ['prettier'],

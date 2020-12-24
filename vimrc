@@ -35,7 +35,7 @@ Plug 'tpope/vim-dispatch', { 'for': ['go']  }
 Plug 'dgryski/vim-godef', { 'for': ['go']  }
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'json', 'go']  }
+Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf'
@@ -171,6 +171,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "  https://gist.github.com/ralavay/c4c7750795ccfd72c2db
 autocmd BufRead,BufNewFile /etc/nginx/*,/etc/nginx/conf.d/*,/usr/local/nginx/conf/*,*.conf if &ft == '' | set filetype=nginx | endif
 
+" auto format json
+autocmd FileType json autocmd BufWritePre <buffer> call FormatJSON()
+function FormatJSON()
+  :%!xargs -0 node -e "console.log(JSON.stringify(JSON.parse(process.argv[1]), null, 2));"
+endf
+
 map <Leader>w :NERDTreeToggle<CR>
 nmap <Leader>u :UndotreeToggle<CR>
 nmap <leader>h :Toc<cr>
@@ -242,14 +248,6 @@ let g:ale_echo_delay = 100
 let g:airline#extensions#ale#enabled = 1
 
 "==============================================================================
-" ALE fixjson & jsonlint
-"==============================================================================
-" ale with json
-" https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt
-let g:ale_json_fixjson_use_global = 1
-let g:ale_json_jsonlint_use_global = 1
-
-"==============================================================================
 " ALE tslint
 "==============================================================================
 " ale with typescript
@@ -286,7 +284,6 @@ let g:ale_linters = {
 \   'typescript': ['tslint', 'tsserver', 'eslint'],
 \   'typescriptreact': ['tslint', 'tsserver', 'eslint'],
 \   'go': ['golangci-lint'],
-\   'json': ['jsonlint'],
 \}
 
 let g:ale_fixers = {
@@ -295,7 +292,6 @@ let g:ale_fixers = {
 \   'typescript': ['prettier', 'tslint', 'eslint'],
 \   'typescriptreact': ['prettier', 'tslint', 'eslint'],
 \   'vue': ['prettier', 'eslint'],
-\   'json': ['prettier', 'fixjson'],
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'scss': ['prettier'],
@@ -308,3 +304,4 @@ let g:ale_fixers = {
 nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)
+

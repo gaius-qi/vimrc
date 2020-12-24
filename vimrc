@@ -32,7 +32,7 @@ Plug 'tpope/vim-dispatch', { 'for': ['go']  }
 Plug 'dgryski/vim-godef', { 'for': ['go']  }
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go']  }
+Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf'
@@ -150,12 +150,6 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" auto format json
-autocmd FileType json autocmd BufWritePre <buffer> call FormatJSON()
-function FormatJSON()
-  :%!xargs -0 node -e "console.log(JSON.stringify(JSON.parse(process.argv[1]), null, 2));"
-endf
-
 map <Leader>w :NERDTreeToggle<CR>
 nmap <Leader>u :UndotreeToggle<CR>
 nmap <leader>h :Toc<cr>
@@ -234,6 +228,13 @@ let g:ale_typescript_tslint_use_global = 1
 let g:ale_typescript_tslint_config_path = $HOME . '/.tslint.json'
 let g:ale_typescript_tslint_executable = 'tslint'
 
+"==============================================================================	
+" ALE fixjson	
+"==============================================================================	
+" ale with json	
+" https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt	
+let g:ale_json_fixjson_use_global = 1	
+
 "==============================================================================
 " ALE linter
 "==============================================================================
@@ -277,6 +278,7 @@ let g:ale_fixers = {
 \   'html': ['prettier'],
 \   'markdown': ['prettier'],
 \   'yaml': ['prettier'],
+\   'json': ['prettier', 'fixjson'],
 \}
 
 nmap <F8> <Plug>(ale_fix)

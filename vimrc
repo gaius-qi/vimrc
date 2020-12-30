@@ -23,9 +23,13 @@ Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'wsdjeg/FlyGrep.vim'
 
+" golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
 Plug 'tpope/vim-dispatch', { 'for': ['go']  }
 Plug 'dgryski/vim-godef', { 'for': ['go']  }
+
+" rust
+Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json']  }

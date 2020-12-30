@@ -32,7 +32,7 @@ Plug 'dgryski/vim-godef', { 'for': ['go']  }
 Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json']  }
+Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf'
@@ -172,6 +172,10 @@ let g:godef_same_file_in_same_window=1
 " vim-vue插件
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
 
+" rust.vim
+let g:rustfmt_autosave = 1
+let g:ale_rust_rls_toolchain = 'stable'
+
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -285,6 +289,7 @@ let g:ale_go_golangci_lint_options =''
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint'],
+\   'rust': ['cargo', 'rls'],
 \}
 
 let g:ale_fixers = {

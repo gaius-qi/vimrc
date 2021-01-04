@@ -27,12 +27,10 @@ Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'type
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'honza/vim-snippets'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
-
-" rust
-Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 call plug#end()
 
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
@@ -156,7 +154,10 @@ if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 " COC
 "==============================================================================
 set updatetime=300
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets', 'coc-rls', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer']
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" coc-snippets
 imap <C-l> <Plug>(coc-snippets-expand)
 
 " GoTo code navigation.
@@ -240,19 +241,6 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
 
 "==============================================================================
-" Rust
-"==============================================================================
-let g:LanguageClient_serverCommands = {
-\ 'rust': ['rust-analyzer'],
-\ }
-
-"==============================================================================
-" rust.vim
-"==============================================================================
-let g:rustfmt_autosave = 1
-let g:ale_rust_rls_toolchain = 'stable'
-
-"==============================================================================
 " ALE default
 "==============================================================================
 " ale default configuration
@@ -307,8 +295,8 @@ let g:ale_go_golangci_lint_options =''
 "==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'go': ['gobuild', 'golangci-lint'],
-\   'rust': ['analyzer', 'cargo', 'rls'],
+\   'go': ['govet', 'golangci-lint'],
+\   'rust': ['analyzer'],
 \}
 
 "==============================================================================

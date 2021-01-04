@@ -22,6 +22,11 @@ Plug 'pangloss/vim-javascript', { 'for': ['vue', 'javascript'] } " 语法高亮
 Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'wsdjeg/FlyGrep.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug '~/.fzf'
+Plug 'junegunn/fzf'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
@@ -30,16 +35,10 @@ Plug 'dgryski/vim-godef', { 'for': ['go']  }
 
 " rust
 Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
-
-Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-Plug '~/.fzf'
-Plug 'junegunn/fzf'
 call plug#end()
+
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
-
 syntax on " 语法高亮
 colorscheme dracula
 
@@ -125,61 +124,8 @@ let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 
-"==============================================================================
-" COC
-"==============================================================================
-set updatetime=100
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets']
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" GoTo code navigation.
-" gd go to definition and ctrl + ^ go back previous file
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use shift + k to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-"==============================================================================
-" vim-go 插件
-"==============================================================================
-let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1 " 不弹出 quickfix 窗口
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-let g:go_version_warning = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:godef_split=3
-let g:godef_same_file_in_same_window=1
-
-" vim-vue插件
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
-
-" rust.vim
-let g:rustfmt_autosave = 1
-let g:ale_rust_rls_toolchain = 'stable'
-
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 map <Leader>w :NERDTreeToggle<CR>
 nmap <Leader>u :UndotreeToggle<CR>
 nmap <leader>h :Toc<cr>
@@ -207,13 +153,68 @@ map <C-e> :NERDTreeToggle<CR>
 set dir=$HOME/.vim/tmp/swap
 if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 
+
+"==============================================================================
+" COC
+"==============================================================================
+set updatetime=100
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets', 'coc-rls', 'coc-rust-analyzer']
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" GoTo code navigation.
+" gd go to definition and ctrl + ^ go back previous file
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use shift + k to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+"==============================================================================
+" vim-go
+"==============================================================================
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1 " 不弹出 quickfix 窗口
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:godef_split=3
+let g:godef_same_file_in_same_window=1
+
+"==============================================================================
+" vim-vue
+"==============================================================================
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
+
+"==============================================================================
 " fzf
+"==============================================================================
 let g:fzf_layout = { 'down': '50%' }
 nnoremap <C-O> :FZF<CR>
 nnoremap <C-P> :GFiles<CR>
 nnoremap <C-F> :FlyGrep<CR>
 
+"==============================================================================
 " OmniComplete
+"==============================================================================
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
         \if &omnifunc == "" |
@@ -235,6 +236,13 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set completeopt-=preview
 
 "==============================================================================
+" Airline
+"==============================================================================
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+
+"==============================================================================
 " Rust
 "==============================================================================
 let g:LanguageClient_serverCommands = {
@@ -242,10 +250,21 @@ let g:LanguageClient_serverCommands = {
 \ }
 
 "==============================================================================
+" rust.vim
+"==============================================================================
+let g:rustfmt_autosave = 1
+let g:ale_rust_rls_toolchain = 'stable'
+
+"==============================================================================
 " ALE default
 "==============================================================================
 " ale default configuration
 " https://github.com/dense-analysis/ale/blob/master/doc/ale.txt
+" ale lint configuration
+" https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt	
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -254,7 +273,9 @@ let g:ale_sign_warning = '⚠'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_max_signs = 10
-let g:airline#extensions#ale#enabled = 1
+nmap <F8> <Plug>(ale_fix)
+nmap <leader>jj <Plug>(ale_next_wrap)
+nmap <leader>kk <Plug>(ale_previous_wrap)
 
 "==============================================================================
 " ALE tslint
@@ -268,18 +289,7 @@ let g:ale_typescript_tslint_executable = 'tslint'
 "==============================================================================	
 " ALE fixjson	
 "==============================================================================	
-" ale with json	
-" https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt	
 let g:ale_json_fixjson_use_global = 1	
-
-"==============================================================================
-" ALE linter
-"==============================================================================
-" Run linters only when I save files
-" https://github.com/dense-analysis/ale#5xii-how-can-i-run-linters-only-when-i-save-files
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
 
 "==============================================================================
 " ALE golangci-lint
@@ -294,12 +304,18 @@ let g:ale_lint_on_enter = 0
 " 项目内必须要有 .golangci.yaml 文件否则没有 lint
 let g:ale_go_golangci_lint_options =''
 
+"==============================================================================
+" ALE linters
+"==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint'],
 \   'rust': ['analyzer', 'cargo', 'rls'],
 \}
 
+"==============================================================================
+" ALE fixers
+"==============================================================================
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
 \   'javascriptreact': ['prettier', 'eslint'],
@@ -316,7 +332,3 @@ let g:ale_fixers = {
 \   'json': ['prettier', 'fixjson'],
 \   'rust': ['rustfmt']
 \}
-
-nmap <F8> <Plug>(ale_fix)
-nmap <leader>jj <Plug>(ale_next_wrap)
-nmap <leader>kk <Plug>(ale_previous_wrap)

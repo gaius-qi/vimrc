@@ -63,6 +63,7 @@ set iskeyword+=_,$,@,%,#,- " 带有如下符号的单词不要被换行分割
 set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h18 "设置字体
 set magic
 set nobackup " 不要备份文件
+set noswapfile " 关闭交换文件
 set nowb
 set bufhidden=hide
 set linespace=0 " 字符间插入的像素行数目
@@ -118,6 +119,10 @@ let NERDTreeShowBookmarks=1 " The-NERD-tree
 let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
+
+" inoremap
+" 回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

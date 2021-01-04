@@ -176,6 +176,7 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " rust.vim
 let g:rustfmt_autosave = 1
 let g:ale_rust_rls_toolchain = 'stable'
+let g:ale_rust_rls_executable = 'rust-analyzer'
 
 " nerdtree 自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -297,7 +298,7 @@ let g:ale_go_golangci_lint_options =''
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint'],
-\   'rust': ['analyzer', 'cargo', 'rls'],
+\   'rust': ['rls'],
 \}
 
 let g:ale_fixers = {
@@ -314,6 +315,7 @@ let g:ale_fixers = {
 \   'markdown': ['prettier'],
 \   'yaml': ['prettier'],
 \   'json': ['prettier', 'fixjson'],
+\   'rust': ['rustfmt']
 \}
 
 nmap <F8> <Plug>(ale_fix)

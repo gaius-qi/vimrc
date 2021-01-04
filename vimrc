@@ -26,12 +26,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
-Plug 'tpope/vim-dispatch', { 'for': ['go']  }
-Plug 'dgryski/vim-godef', { 'for': ['go']  }
 
 " rust
 Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
@@ -157,12 +155,12 @@ if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
 "==============================================================================
 " COC
 "==============================================================================
-set updatetime=100
+set updatetime=300
 let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets', 'coc-rls', 'coc-rust-analyzer']
 imap <C-l> <Plug>(coc-snippets-expand)
 
 " GoTo code navigation.
-" gd go to definition and ctrl + ^ go back previous file
+" 'gd' go to definition and 'ctrl + o go' back previous file
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -196,8 +194,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_generate_tags = 1
-let g:godef_split=3
-let g:godef_same_file_in_same_window=1
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
 
 "==============================================================================
 " vim-vue
@@ -208,7 +206,6 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " fzf
 "==============================================================================
 let g:fzf_layout = { 'down': '50%' }
-nnoremap <C-O> :FZF<CR>
 nnoremap <C-P> :GFiles<CR>
 nnoremap <C-F> :FlyGrep<CR>
 
@@ -266,6 +263,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
+let g:ale_lint_delay = 500
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_sign_error = '✗'

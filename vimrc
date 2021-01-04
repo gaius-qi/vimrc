@@ -234,6 +234,13 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 set completeopt-=preview
 
 "==============================================================================
+" Rust
+"==============================================================================
+let g:LanguageClient_serverCommands = {
+\ 'rust': ['rust-analyzer'],
+\ }
+
+"==============================================================================
 " ALE default
 "==============================================================================
 " ale default configuration
@@ -289,7 +296,7 @@ let g:ale_go_golangci_lint_options =''
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint'],
-\   'rust': ['cargo', 'rls'],
+\   'rust': ['analyzer', 'cargo', 'rls'],
 \}
 
 let g:ale_fixers = {

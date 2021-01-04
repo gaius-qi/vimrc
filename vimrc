@@ -133,7 +133,7 @@ let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go',
 imap <C-l> <Plug>(coc-snippets-expand)
 
 " GoTo code navigation.
-nmap <silent> <Leader>gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)

@@ -307,7 +307,7 @@ let g:ale_go_golangci_lint_options =''
 "==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'go': ['golangci-lint'],
+\   'go': ['gobuild', 'golangci-lint'],
 \   'rust': ['analyzer', 'cargo', 'rls'],
 \}
 

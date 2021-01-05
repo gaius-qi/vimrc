@@ -1,9 +1,7 @@
-set nocompatible
-set shell=/usr/local/bin/fish
-set background=dark
-filetype off
+"==============================================================================
+" Plugin
+"==============================================================================
 call plug#begin('~/.vim/plugged')
-set encoding=utf-8
 
 " 操作型插件
 Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
@@ -17,12 +15,10 @@ Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescriptreact'] }
 Plug 'vim-airline/vim-airline' " 状态栏
-Plug 'pangloss/vim-javascript', { 'for': ['vue', 'javascript'] } " 语法高亮
-Plug 'posva/vim-vue', { 'for': ['vue'] } " 语法高亮
+Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
-Plug 'wsdjeg/FlyGrep.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'vue', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
+Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -32,11 +28,16 @@ Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go', { 'for': ['go']  }
 call plug#end()
 
+"==============================================================================
+" Vim
+"==============================================================================
+filetype off
+set shell=/usr/local/bin/fish
+set encoding=utf-8
+colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
 filetype on " 载入文件类型插件
 syntax on " 语法高亮
-colorscheme dracula
-
 set ttyfast
 set lazyredraw
 set clipboard=unnamed " Mac 下共享剪切板
@@ -103,12 +104,28 @@ set fillchars+=stl:\ ,stlnc:\
 set t_Co=256
 set fo+=mB "对亚洲语言断行支持
 set listchars=tab:--
-
 let mapleader = ","  " map leader键设置
 let g:mapleader = ","
-let b:javascript_fold=1 " 打开javascript折叠
-let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
+nmap <leader>a :Ag! -w "<cword>"<cr> "用 ,a 搜索当前 cursor 下单词
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+
+" 回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
+
+"==============================================================================
+" NerdTree
+"==============================================================================
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1 " The-NERD-tree
 let NERDTreeShowFiles=1 " The-NERD-tree
 let NERDTreeWinPos=1 " The-NERD-tree
@@ -119,40 +136,15 @@ let NERDTreeShowBookmarks=1 " The-NERD-tree
 let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
-
-" inoremap
-" 回车即选中当前项
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-
-" nerdtree 自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-map <Leader>w :NERDTreeToggle<CR>
-nmap <Leader>u :UndotreeToggle<CR>
-nmap <leader>h :Toc<cr>
-nmap <Leader>c :<C-u>call gitblame#echo()<CR>
-nmap <leader>a :Ag! -w "<cword>"<cr> "用 ,a 搜索当前 cursor 下单词
-nmap <C-A> :<c-C>ggVG
-nmap <S-l> gt
-nmap <S-h> gT
-nmap <C-l> <C-w>l
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-
-" Change cursor shape between insert and normal mode in iTerm2.app
-if $TERM_PROGRAM =~ "iTerm"
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-endif
-
-" NerdTree
 let g:NERDShutUp=1
+map <Leader>w :NERDTreeToggle<CR>
 map <C-e> :NERDTreeToggle<CR>
 
-" store swap files in a single directory instead of the current directory with the 'dir' setting
-set dir=$HOME/.vim/tmp/swap
-if !isdirectory(&dir) | call mkdir(&dir, 'p', 0700) | endif
-
+"==============================================================================
+" vim-javascript
+"==============================================================================
+let b:javascript_fold=1 " 打开javascript折叠
+let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
 
 "==============================================================================
 " COC
@@ -183,6 +175,9 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Disable the neosnippet preview candidate window
+set completeopt-=preview
+
 "==============================================================================
 " vim-go
 "==============================================================================
@@ -203,39 +198,10 @@ let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 
 "==============================================================================
-" vim-vue
-"==============================================================================
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css 
-
-"==============================================================================
 " fzf
 "==============================================================================
 let g:fzf_layout = { 'down': '50%' }
 nnoremap <C-P> :GFiles<CR>
-nnoremap <C-F> :FlyGrep<CR>
-
-"==============================================================================
-" OmniComplete
-"==============================================================================
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-        \if &omnifunc == "" |
-        \setlocal omnifunc=syntaxcomplete#Complete |
-        \endif
-endif
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Disable the neosnippet preview candidate window
-set completeopt-=preview
 
 "==============================================================================
 " Airline
@@ -310,7 +276,6 @@ let g:ale_fixers = {
 \   'javascriptreact': ['prettier', 'eslint'],
 \   'typescript': ['prettier', 'eslint'],
 \   'typescriptreact': ['prettier', 'eslint'],
-\   'vue': ['prettier', 'eslint'],
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'scss': ['prettier'],

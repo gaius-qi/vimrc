@@ -5,7 +5,6 @@ Plug 'terryma/vim-multiple-cursors' " 多行操作 <c-n>
 Plug 'scrooloose/nerdcommenter' " ,ci ：切换选中行的注释状态
 Plug 'scrooloose/nerdtree' " 树状显示文件目录 ,w切换 ,oxcst, 切换窗口 <c-w>
 Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Gblame, :Gstatus :Gcommit
-Plug 'junegunn/vim-xmark', {'do': 'make', 'for': 'markdown'}
 
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题

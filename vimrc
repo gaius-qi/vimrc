@@ -102,7 +102,6 @@ set t_Co=256
 set fo+=mB "对亚洲语言断行支持
 set listchars=tab:--
 let mapleader = ","  " map leader键设置
-let g:mapleader = ","
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
 nmap <leader>a :Ag! -w "<cword>"<cr> "用 ,a 搜索当前 cursor 下单词
 nmap <C-l> <C-w>l
@@ -132,10 +131,13 @@ let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ] "ignore files in NER
 let NERDTreeShowBookmarks=1 " The-NERD-tree
 let g:nerdtree_tabs_smart_startup_focus=2
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
-let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 let g:NERDShutUp=1
-map <Leader>w :NERDTreeToggle<CR>
 map <C-e> :NERDTreeToggle<CR>
+
+"==============================================================================
+" NERD Commenter
+"==============================================================================
+let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 
 "==============================================================================
 " vim-javascript

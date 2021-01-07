@@ -95,14 +95,16 @@ set expandtab " 用空格代替制表符
 set wrap " 换行
 set smarttab " 在行和段开始处使用制表符
 set background=dark
+set splitright
+set splitbelow
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set fillchars+=stl:\ ,stlnc:\
 set t_Co=256
 set fo+=mB "对亚洲语言断行支持
 set listchars=tab:--
+lang en_US.UTF-8
 let mapleader = ","  " map leader键设置
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
-nmap <leader>a :Ag! -w "<cword>"<cr> "用 ,a 搜索当前 cursor 下单词
 nmap <C-l> <C-w>l
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -121,22 +123,23 @@ endif
 " NerdTree
 "==============================================================================
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=1 " The-NERD-tree
-let NERDTreeShowFiles=1 " The-NERD-tree
-let NERDTreeWinPos=1 " The-NERD-tree
-let NERDTreeWinPos="left" " The-NERD-tree
-let NERDTreeShowLineNumbers=1 " The-NERD-tree
-let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ] "ignore files in NERDTree " The-NERD-tree
-let NERDTreeShowBookmarks=1 " The-NERD-tree
-let g:nerdtree_tabs_smart_startup_focus=2
+autocmd vimenter * if !argc()|NERDTree|endif
+let NERDTreeShowHidden=1
+let NERDTreeShowFiles=1
+let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ]
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
-let g:NERDShutUp=1
+let g:NERDTreeMinimalUI=1
+
+"==============================================================================
+" vim-nerdtree-tabs
+"==============================================================================
 map <C-e> :NERDTreeToggle<CR>
 
 "==============================================================================
 " NERD Commenter
 "==============================================================================
 let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
+let g:NERDShutUp=1
 
 "==============================================================================
 " vim-javascript

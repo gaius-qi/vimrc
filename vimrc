@@ -128,7 +128,6 @@ let NERDTreeShowHidden=1
 let NERDTreeShowFiles=1
 let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ]
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
-let g:NERDTreeMinimalUI=1
 
 "==============================================================================
 " vim-nerdtree-tabs
@@ -187,12 +186,14 @@ let g:go_fmt_fail_silently = 1 " 不弹出 quickfix 窗口
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_version_warning = 1
+let g:go_highlight_build_constraints = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
+let g:go_highlight_structs = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_generate_tags = 1
 let g:go_def_mapping_enabled = 0

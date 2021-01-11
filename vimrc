@@ -266,7 +266,7 @@ let g:ale_go_golangci_lint_options =''
 "==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'go': ['govet', 'golangci-lint'],
+\   'go': ['golangci-lint'],
 \   'rust': ['analyzer'],
 \}
 

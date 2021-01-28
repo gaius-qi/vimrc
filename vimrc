@@ -14,7 +14,10 @@ Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
+Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'json', 'rust']  }
+
+" TODO golangci-lint
+" Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -259,16 +262,24 @@ let g:ale_json_fixjson_use_global = 1
 " ALE 运行 golangci-lint run main.go
 " 使用项目内 .golangci.yaml 配置文件 lint
 " 项目内必须要有 .golangci.yaml 文件否则没有 lint
-let g:ale_go_golangci_lint_options =''
+
+" TODO golangci-lint
+" let g:ale_go_golangci_lint_options =''
 
 "==============================================================================
 " ALE linters
 "==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'go': ['golangci-lint'],
 \   'rust': ['analyzer'],
 \}
+
+" TODO golangci-lint
+" let g:ale_linters = {
+" \   'javascript': ['eslint'],
+" \   'go': ['golangci-lint'],
+" \   'rust': ['analyzer'],
+" \}
 
 "==============================================================================
 " ALE fixers

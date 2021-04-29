@@ -19,6 +19,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'honza/vim-snippets'
+Plug 'junegunn/vim-xmark', { 'do': 'make' }
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }

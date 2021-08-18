@@ -15,7 +15,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'honza/vim-snippets'
@@ -198,6 +198,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_generate_tags = 1
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
+let g:go_gopls_enabled = 0
 
 "==============================================================================
 " fzf
@@ -264,15 +265,9 @@ let g:ale_go_golangci_lint_options =''
 "==============================================================================
 " ALE linters
 "==============================================================================
-"let g:ale_linters = {
-"\   'javascript': ['eslint'],
-"\   'go': ['golangci-lint', 'govet'],
-"\   'rust': ['analyzer'],
-"\}
-
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'go': ['golangci-lint'],
+\   'go': ['golangci-lint', 'govet'],
 \   'rust': ['analyzer'],
 \}
 

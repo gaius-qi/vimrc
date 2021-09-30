@@ -103,6 +103,12 @@ set fillchars+=stl:\ ,stlnc:\
 set t_Co=256
 set fo+=mB "对亚洲语言断行支持
 set listchars=tab:--
+
+" Turn off annoying beeps
+set vb
+set noeb
+set vb t_vb=
+
 lang en_US.UTF-8
 let mapleader = ","  " map leader键设置
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号

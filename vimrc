@@ -205,6 +205,7 @@ let g:go_highlight_generate_tags = 1
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 let g:go_gopls_enabled = 0
+let g:go_metalinter_command = "golangci-lint"
 
 "==============================================================================
 " fzf

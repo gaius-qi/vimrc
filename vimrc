@@ -14,7 +14,7 @@ Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust']  }
+Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust', 'yaml', 'markdown']  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -270,12 +270,20 @@ let g:ale_json_fixjson_use_global = 1
 let g:ale_go_golangci_lint_options =''
 
 "==============================================================================
+" ALE markdownlint 
+"==============================================================================
+" configuration path is $HOME/.markdownlint.yml
+let g:ale_markdown_markdownlint_options='-c $HOME/.markdownlint.yml'
+
+"==============================================================================
 " ALE linters
 "==============================================================================
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint', 'govet'],
 \   'rust': ['analyzer'],
+\   'markdown': ['markdownlint'],
+\   'yaml': ['yamllint']
 \}
 
 "==============================================================================

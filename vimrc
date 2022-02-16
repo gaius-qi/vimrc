@@ -276,6 +276,18 @@ let g:ale_go_golangci_lint_options =''
 let g:ale_markdown_markdownlint_options='-c $HOME/.markdownlint.yml'
 
 "==============================================================================
+" ALE yamllint
+"==============================================================================
+" configuration path is $HOME/.yamllint
+let g:ale_yaml_yamllint_options = '-c $HOME/.yamllint'
+
+"==============================================================================
+" ALE prettier
+"==============================================================================
+" configuration path is $HOME/.prettierrc.yml
+let g:ale_javascript_prettier_options = '--config $HOME/.prettierrc.yml'
+
+"==============================================================================
 " ALE linters
 "==============================================================================
 let g:ale_linters = {

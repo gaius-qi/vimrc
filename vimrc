@@ -312,7 +312,7 @@ let g:ale_fixers = {
 \   'sass': ['prettier'],
 \   'html': ['prettier'],
 \   'markdown': ['prettier'],
-\   'yaml': ['prettier'],
+\   'yaml': [],
 \   'json': ['prettier', 'fixjson'],
 \   'rust': ['rustfmt']
 \}

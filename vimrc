@@ -20,6 +20,7 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
+Plug 'github/copilot.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }

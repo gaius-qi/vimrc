@@ -294,7 +294,6 @@ let g:ale_javascript_prettier_options = '--config $HOME/.prettierrc.yml'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['golangci-lint', 'govet'],
-\   'rust': ['analyzer'],
 \   'markdown': ['markdownlint'],
 \   'yaml': ['yamllint']
 \}

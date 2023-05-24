@@ -24,6 +24,9 @@ Plug 'github/copilot.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
+
+" rust
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 call plug#end()
 
 "==============================================================================
@@ -209,6 +212,11 @@ let g:go_gopls_enabled = 0
 let g:go_metalinter_command = "golangci-lint"
 
 "==============================================================================
+" rust.vim
+"==============================================================================
+let g:rustfmt_autosave = 1
+
+"==============================================================================
 " fzf
 "==============================================================================
 let g:fzf_layout = { 'down': '50%' }
@@ -314,5 +322,4 @@ let g:ale_fixers = {
 \   'markdown': ['prettier'],
 \   'yaml': [],
 \   'json': ['prettier', 'fixjson'],
-\   'rust': ['rustfmt']
 \}

@@ -215,6 +215,8 @@ let g:go_metalinter_command = "golangci-lint"
 " rust.vim
 "==============================================================================
 let g:rustfmt_autosave = 1
+let g:rustfmt_autosave_if_config_present = 1
+let g:rustfmt_fail_silently = 1
 
 "==============================================================================
 " fzf

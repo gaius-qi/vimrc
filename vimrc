@@ -14,7 +14,7 @@ Plug 'vim-airline/vim-airline' " 状态栏
 Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'jiangmiao/auto-pairs'
-Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'rust', 'yaml', 'markdown']  }
+Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'go', 'json', 'yaml', 'markdown']  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -24,9 +24,6 @@ Plug 'github/copilot.vim'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
-
-" rust
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 call plug#end()
 
 "==============================================================================
@@ -160,7 +157,7 @@ let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支�
 " COC
 "==============================================================================
 set updatetime=300
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-html', 'coc-go', 'coc-css', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer']
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " coc-snippets
@@ -210,13 +207,6 @@ let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 let g:go_gopls_enabled = 0
 let g:go_metalinter_command = "golangci-lint"
-
-"==============================================================================
-" rust.vim
-"==============================================================================
-let g:rustfmt_autosave = 1
-let g:rustfmt_autosave_if_config_present = 1
-let g:rustfmt_fail_silently = 1
 
 "==============================================================================
 " fzf

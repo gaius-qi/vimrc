@@ -158,7 +158,7 @@ let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支�
 " COC
 "==============================================================================
 set updatetime=300
-let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer', "coc-clangd"]
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " coc-snippets

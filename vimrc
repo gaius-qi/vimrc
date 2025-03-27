@@ -18,7 +18,6 @@ Plug 'w0rp/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 Plug 'github/copilot.vim'
 Plug 'towolf/vim-helm'

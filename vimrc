@@ -30,7 +30,7 @@ call plug#end()
 " Vim
 "==============================================================================
 filetype off
-set shell=/usr/local/bin/fish
+set shell=/usr/bin/bash
 set encoding=utf-8
 colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
@@ -110,7 +110,6 @@ set vb
 set noeb
 set vb t_vb=
 
-lang en_US.UTF-8
 let mapleader = ","  " map leader键设置
 let loaded_matchparen = 0 "关闭自动高亮显示匹配的括号
 nmap <C-l> <C-w>l

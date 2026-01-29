@@ -19,7 +19,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
-Plug 'github/copilot.vim'
 Plug 'towolf/vim-helm'
 
 " golang
@@ -125,11 +124,6 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
     let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 endif
-
-"==============================================================================
-" Copilot
-"==============================================================================
-let g:copilot_settings = #{selectedCompletionModel: 'gpt-41-copilot'}
 
 "==============================================================================
 " NerdTree

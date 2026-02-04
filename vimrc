@@ -16,8 +16,8 @@ Plug 'dense-analysis/ale', { 'for': ['json', 'yaml', 'markdown']  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make' }
-Plug 'towolf/vim-helm'
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
+Plug 'towolf/vim-helm', { 'for': ['helm', 'yaml'] }
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }
@@ -26,12 +26,10 @@ call plug#end()
 "==============================================================================
 " Vim
 "==============================================================================
-filetype off
 set shell=/usr/local/bin/fish
 set encoding=utf-8
 colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件
-filetype on " 载入文件类型插件
 syntax on " 语法高亮
 set ttyfast
 set lazyredraw
@@ -48,7 +46,6 @@ set autowrite " 文件自动保存
 set foldmethod=indent "启用缩进折叠
 set foldcolumn=0
 set foldlevel=99
-set noautoindent
 set fenc=utf-8 " 设定默认解码
 set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
 set nocompatible " 不要使用vi的键盘模式，而是vim自己的

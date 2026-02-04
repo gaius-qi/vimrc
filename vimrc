@@ -9,12 +9,10 @@ Plug 'tpope/vim-fugitive' " 集成 Git 命令 :Git blame
 " 展示型插件
 Plug 'dracula/vim', { 'as': 'dracula' } " dracula 主题
 Plug 'mhinz/vim-signify' " 显示文件变动
-Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescriptreact'] }
 Plug 'vim-airline/vim-airline' " 状态栏
-Plug 'pangloss/vim-javascript', { 'for': ['javascript'] } " 语法高亮
 Plug 'jistr/vim-nerdtree-tabs' " nerdtree 打开标签时保持目录
 Plug 'jiangmiao/auto-pairs'
-Plug 'dense-analysis/ale', { 'for': ['html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'less', 'json', 'yaml', 'markdown']  }
+Plug 'dense-analysis/ale', { 'for': ['json', 'yaml', 'markdown']  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -147,12 +145,6 @@ let NERDSpaceDelims=1 " nerdcommenter 注释添加空格
 let g:NERDShutUp=1
 
 "==============================================================================
-" vim-javascript
-"==============================================================================
-let b:javascript_fold=1 " 打开javascript折叠
-let javascript_enable_domhtmlcss=1 " 打开javascript对dom、html和css的支持
-
-"==============================================================================
 " COC
 "==============================================================================
 set updatetime=300
@@ -242,15 +234,6 @@ nmap <F8> <Plug>(ale_fix)
 nmap <leader>jj <Plug>(ale_next_wrap)
 nmap <leader>kk <Plug>(ale_previous_wrap)
 
-"==============================================================================
-" ALE tslint
-"==============================================================================
-" ale with typescript
-" https://github.com/dense-analysis/ale/blob/master/doc/ale-typescript.txt
-let g:ale_typescript_tslint_use_global = 1
-let g:ale_typescript_tslint_config_path = $HOME . '/.tslint.json'
-let g:ale_typescript_tslint_executable = 'tslint'
-
 "==============================================================================	
 " ALE fixjson	
 "==============================================================================	
@@ -269,34 +252,22 @@ let g:ale_markdown_markdownlint_options='-c $HOME/.markdownlint.yml'
 let g:ale_yaml_yamllint_options = '-c $HOME/.yamllint'
 
 "==============================================================================
-" ALE prettier
-"==============================================================================
-" configuration path is $HOME/.prettierrc.yml
-let g:ale_javascript_prettier_options = '--config $HOME/.prettierrc.yml'
-
-"==============================================================================
 " ALE linters
 "==============================================================================
 let g:ale_linters = {
-\   'javascript': ['eslint'],
 \   'markdown': ['markdownlint'],
 \   'yaml': ['yamllint']
+\}
+
+let g:ale_linters_ignore = {
+\   'rust': ['analyzer'],
 \}
 
 "==============================================================================
 " ALE fixers
 "==============================================================================
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'javascriptreact': ['prettier', 'eslint'],
-\   'typescript': ['prettier', 'eslint'],
-\   'typescriptreact': ['prettier', 'eslint'],
-\   'css': ['prettier'],
-\   'less': ['prettier'],
-\   'scss': ['prettier'],
-\   'sass': ['prettier'],
-\   'html': ['prettier'],
 \   'markdown': ['prettier'],
-\   'yaml': [],
+\   'yaml': ['prettier'],
 \   'json': ['prettier', 'fixjson'],
 \}

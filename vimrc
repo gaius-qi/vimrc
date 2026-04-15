@@ -145,7 +145,7 @@ let g:NERDShutUp=1
 " COC
 "==============================================================================
 set updatetime=300
-let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer', "coc-clangd"]
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-yaml', 'coc-snippets', 'coc-rust-analyzer', 'coc-pyright', 'coc-clangd']
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " coc-snippets

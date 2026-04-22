@@ -39,7 +39,6 @@ set undodir=$HOME/.vim/undo " 需要提前创建该目录，否则不会生效
 set undolevels=1000 " max number of undos
 set undoreload=10000 " max lines to to save for undo
 set hidden " vim切换buffer(文件/tab)后仍然保留undo
-set autochdir "自动切换到文件所在文件夹
 set rtp+=~/.fzf
 set autoread "文件自动重载
 set autowrite " 文件自动保存
@@ -217,6 +216,7 @@ let g:airline#extensions#whitespace#symbol = '!'
 " ale lint configuration
 " https://github.com/dense-analysis/ale/blob/master/doc/ale-json.txt	
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_disable_lsp = 1
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1

@@ -126,7 +126,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 autocmd vimenter * if !argc()|NERDTree|endif
 let NERDTreeShowHidden=1
 let NERDTreeShowFiles=1
-let NERDTreeIgnore=['\.pyc$', '\~$', '\.swp' ]
+let NERDTreeIgnore=['\.pyc$', '\~$', '.DS_Store', '\.swp' ]
 let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 
 "==============================================================================

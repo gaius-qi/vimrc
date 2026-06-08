@@ -34,7 +34,7 @@ filetype plugin indent on " 为特定文件类型载入相关缩进文件
 syntax on " 语法高亮
 set ttyfast
 set lazyredraw
-set clipboard=unnamed " Mac 下共享剪切板
+set clipboard=unnamedplus " Mac 下共享剪切板
 set undofile " vim退出并在下次打开后仍然保留上次的undo历史
 set undodir=$HOME/.vim/undo " 需要提前创建该目录，否则不会生效
 set undolevels=1000 " max number of undos
@@ -179,6 +179,11 @@ set completeopt-=preview
 nmap <leader>c <Plug>OSCYankOperator
 nmap <leader>cc <leader>c_
 vmap <leader>c <Plug>OSCYankVisual
+
+autocmd TextYankPost *
+    \ if v:event.operator is 'y' |
+    \ execute 'OSCYank ' .. join(v:event.regcontents, "\n") |
+    \ endif
 
 "==============================================================================
 " vim-go

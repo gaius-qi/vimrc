@@ -181,8 +181,8 @@ nmap <leader>cc <leader>c_
 vmap <leader>c <Plug>OSCYankVisual
 
 autocmd TextYankPost *
-    \ if v:event.operator is 'y' |
-    \ execute 'OSCYank ' .. join(v:event.regcontents, "\n") |
+    \ if v:event.operator is 'y' && v:event.regname is '' |
+    \ execute 'OSCYankRegister "' |
     \ endif
 
 "==============================================================================

@@ -27,7 +27,9 @@ call plug#end()
 "==============================================================================
 " Vim
 "==============================================================================
-set shell=/usr/local/bin/fish
+set shell=/opt/homebrew/bin/fish
+let g:copilot_npx_command = 0 " 禁用 npx，直接使用 copilot.vim 自带的 language server
+let g:copilot_node_command = '/opt/homebrew/bin/node'
 set encoding=utf-8
 colorscheme dracula
 filetype plugin indent on " 为特定文件类型载入相关缩进文件

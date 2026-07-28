@@ -16,9 +16,9 @@ Plug 'dense-analysis/ale', { 'for': ['json', 'yaml', 'markdown']  }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 Plug 'towolf/vim-helm', { 'for': ['helm', 'yaml'] }
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'OXY2DEV/markview.nvim'
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }

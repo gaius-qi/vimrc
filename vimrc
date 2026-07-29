@@ -18,7 +18,7 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'towolf/vim-helm', { 'for': ['helm', 'yaml'] }
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-Plug 'OXY2DEV/markview.nvim'
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': ['markdown'] }
 
 " golang
 Plug 'fatih/vim-go', { 'for': ['go']  }

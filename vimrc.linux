@@ -58,6 +58,7 @@ set viminfo+=! " 保存全局变量
 set iskeyword+=_,$,@,%,#,- " 带有如下符号的单词不要被换行分割
 set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h18 "设置字体
 set magic
+set maxmempattern=2000000
 set nobackup " 不要备份文件
 set noswapfile " 关闭交换文件
 set nowb
@@ -136,7 +137,7 @@ let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 "==============================================================================
 " vim-nerdtree-tabs
 "==============================================================================
- map <C-e> :NERDTreeToggle<CR>
+map <C-e> :NERDTreeToggle<CR>
 
 "==============================================================================
 " NERD Commenter

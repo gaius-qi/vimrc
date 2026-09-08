@@ -41,6 +41,7 @@ set undofile " vim退出并在下次打开后仍然保留上次的undo历史
 set undodir=$HOME/.vim/undo " 需要提前创建该目录，否则不会生效
 set undolevels=1000 " max number of undos
 set undoreload=10000 " max lines to to save for undo
+set autochdir "自动切换到文件所在文件夹
 set hidden " vim切换buffer(文件/tab)后仍然保留undo
 set rtp+=~/.fzf
 set autoread "文件自动重载
@@ -57,6 +58,7 @@ set viminfo+=! " 保存全局变量
 set iskeyword+=_,$,@,%,#,- " 带有如下符号的单词不要被换行分割
 set guifont=Meslo\ LG\ M\ Regular\ for\ Powerline:h18 "设置字体
 set magic
+set maxmempattern=2000000
 set nobackup " 不要备份文件
 set noswapfile " 关闭交换文件
 set nowb
